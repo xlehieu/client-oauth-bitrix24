@@ -1,12 +1,15 @@
-// app/bitrix/page.tsx
 'use client';
-import { useRouter } from 'next/router';
+//useRouter của next/navigation không có query, chỉ có searchParams
+//useRouter của next/router có query
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Head from 'next/head';
 
 export default function BitrixApp() {
-  const router = useRouter();
-  const { DOMAIN, APP_SID } = router.query;
+  const searchParams = useSearchParams();
+  const DOMAIN = searchParams.get('DOMAIN');
+  const APP_SID = searchParams.get('APP_SID');
+
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).BX24) {
       (window as any).BX24.init(() => {
