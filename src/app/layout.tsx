@@ -23,11 +23,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="vi">
+      <body className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex flex-col">
+        <header className="bg-white shadow-md py-4 px-6 border-b border-blue-200">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <h1 className="text-xl font-semibold text-blue-700">Bitrix App</h1>
+            {/* Bạn có thể thêm icon/logout button tại đây nếu cần */}
+          </div>
+        </header>
+
+        <main className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="w-full max-w-3xl">{children}</div>
+        </main>
+
+        <footer className="text-center text-sm text-gray-500 py-4">
+          © {new Date().getFullYear()} Bitrix App. All rights reserved.
+        </footer>
       </body>
     </html>
   );

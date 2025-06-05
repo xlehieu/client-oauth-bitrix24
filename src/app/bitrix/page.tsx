@@ -1,11 +1,11 @@
+// app/bitrix/page.tsx
 'use client';
-//useRouter của next/navigation không có query, chỉ có searchParams
-//useRouter của next/router có query
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+import { useEffect, Suspense } from 'react';
 import Head from 'next/head';
 
-export default function BitrixApp() {
+function BitrixContent() {
   const searchParams = useSearchParams();
   const DOMAIN = searchParams.get('DOMAIN');
   const APP_SID = searchParams.get('APP_SID');
@@ -27,8 +27,16 @@ export default function BitrixApp() {
         <h1>Ứng dụng Bitrix của tôi</h1>
         <p>Domain: {DOMAIN}</p>
         <p>App SID: {APP_SID}</p>
-        <p>Ứng dụng này đã được cài đặt thành công trên Bitrix24. heeheheh</p>
+        <p>Ứng dụng này đã được cài đặt thành công trên Bitrix24.</p>
       </main>
     </>
+  );
+}
+
+export default function BitrixApp() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BitrixContent />
+    </Suspense>
   );
 }
