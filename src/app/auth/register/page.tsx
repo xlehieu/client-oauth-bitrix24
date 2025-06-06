@@ -1,15 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
+import { useMutation } from '@tanstack/react-query';
+import * as AuthService from '@/services/auth.service';
 export default function RegisterPage() {
+    const router = useRouter();
     const [form, setForm] = useState({
         email: '',
         password: '',
         confirmPassword: '',
     });
-
+    const mutateRegister = useMutation({
+        mutationFn: async (data: any) => AuthService.register(data),
+    });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -21,8 +26,15 @@ export default function RegisterPage() {
             alert('Passwords do not match!');
             return;
         }
-
-        alert(`Register:\n${JSON.stringify(form, null, 2)}`);
+        mutateRegister.mutate(form, {
+            onSuccess: (data) => {
+                router.push('/auth/login');
+                // Redirect to login or home page
+            },
+            onError: (error: any) => {
+                alert(error.response?.data?.message || 'Registration failed');
+            },
+        });
     };
 
     return (

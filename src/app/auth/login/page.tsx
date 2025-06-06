@@ -2,15 +2,29 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import * as AuthService from '@/services/auth.service';
 // app/auth/login/page.tsx
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
+
+    const loginMutation = useMutation({
+        mutationFn: async (data: any) => await AuthService.login(data),
+        onSuccess: () => {
+            router.push('/bitrix'); // Redirect to Bitrix page after successful login
+        },
+        onError: (error) => {
+            alert(error.message || 'Login failed!');
+        },
+    });
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        alert(`Login:\nEmail: ${email}\nPassword: ${password}`);
+        loginMutation.mutate({ email, password });
     };
 
     return (
