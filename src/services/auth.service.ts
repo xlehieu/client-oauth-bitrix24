@@ -46,8 +46,16 @@ export const register = async (data: any) => {
 };
 export const refreshToken = async () => {
     try {
-        const res = await axiosCredentials.post(`/user/refresh-token`, { withCredentials: true });
+        const res = await axiosCredentials.post(`/auth/refresh-token`, { withCredentials: true });
         return res;
+    } catch (err: any) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const getToken = async (member_id: string) => {
+    try {
+        const res = await axiosNoInterceptor.get(`/auth/token?member_id=${member_id}`);
+        return res.data;
     } catch (err: any) {
         throw new Error(err.response.data.message);
     }
