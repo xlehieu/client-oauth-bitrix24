@@ -1,4 +1,4 @@
-import axiosCredentials from '../config/axios.interceptor';
+import axiosInterceptor from '../config/axios.interceptor';
 import axiosNoInterceptor from '../config/axios.nointerceptor';
 
 export const login = async (data: { email: string; password: string }) => {
@@ -20,7 +20,7 @@ export const login = async (data: { email: string; password: string }) => {
 //để kiểm tra xem có quyền lấy data người dùng không
 export const getUserDetail = async () => {
     try {
-        const res = await axiosCredentials.get(`/user/detail`);
+        const res = await axiosInterceptor.get(`/user/detail`);
         if (res.data) {
             return res.data?.data;
         }
@@ -46,7 +46,7 @@ export const register = async (data: any) => {
 };
 export const refreshToken = async () => {
     try {
-        const res = await axiosCredentials.post(`/auth/refresh-token`, { withCredentials: true });
+        const res = await axiosInterceptor.post(`/auth/refresh-token`, { withCredentials: true });
         return res;
     } catch (err: any) {
         throw new Error(err.response.data.message);

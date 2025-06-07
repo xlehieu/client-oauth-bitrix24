@@ -1,13 +1,20 @@
 import axios from 'axios';
-const axiosCredentials = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+const axiosInterceptor = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
     },
     //beforeRedirect
 });
-axiosCredentials.interceptors.response.use(
+axiosInterceptor.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+        config.headers.Authorization = token;
+    }
+    return config;
+});
+axiosInterceptor.interceptors.response.use(
     (response) => response, // Trả về reponse nếu không có lỗi,)
     (error) => {
         if (error.response?.status === 401) {
@@ -19,4 +26,4 @@ axiosCredentials.interceptors.response.use(
         return Promise.reject(error); // Trả về l��i nếu có l��i
     },
 );
-export default axiosCredentials;
+export default axiosInterceptor;
