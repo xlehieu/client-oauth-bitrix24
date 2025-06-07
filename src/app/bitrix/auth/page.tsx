@@ -1,20 +1,23 @@
 // app/bitrix/page.tsx
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useEffect, Suspense, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import * as AuthService from '@/services/auth.service';
-function BitrixContent() {
+import ROUTE from '@/config/routes';
+export default function BitrixAuth() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const [member_id, setMemberId] = useState<string | null>(searchParams.get('member_id'));
     const getTokenMutation = useMutationHook(async (member_id: string) => await AuthService.getToken(member_id));
     useEffect(() => {
         if (!member_id) return;
         getTokenMutation.mutate(member_id || '');
-        const token = getTokenMutation.data as string;
-        localStorage.setItem('token', token);
+        const access_token = getTokenMutation.data as string;
+        localStorage.setItem('access_token', access_token);
+        router.push(ROUTE.SITEMAP_LV1.home.url);
     }, [member_id]);
 
     return (
@@ -29,13 +32,5 @@ function BitrixContent() {
                 <p>Token: {getTokenMutation.data}</p>
             </main>
         </>
-    );
-}
-
-export default function BitrixApp() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <BitrixContent />
-        </Suspense>
     );
 }

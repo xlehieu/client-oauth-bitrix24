@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
+import ROUTE from '@/config/routes';
+import QueryClientProviderComp from '@/components/hooks/QueryClientProviderComp';
+import Navbar from '@/components/layout/Navbar';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -26,26 +29,27 @@ export default function RootLayout({
     return (
         <html lang="vi">
             <body className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex flex-col">
-                <header className="bg-white shadow-md py-4 px-6 border-b border-blue-200">
-                    <div className="max-w-6xl mx-auto flex items-center justify-between">
-                        <h1 className="text-xl font-semibold text-blue-700">Bitrix App</h1>
-                        {/* Bạn có thể thêm icon/logout button tại đây nếu cần */}
-                        <nav>
-                            <Link
-                                href="/auth/login"
-                                className="text-blue-600 font-medium hover:underline hover:text-blue-800 transition duration-200"
-                            >
-                                Login
-                            </Link>
-                        </nav>
-                    </div>
-                </header>
+                {/* return lại để không phải bọc nhiều */}
+                <QueryClientProviderComp>
+                    {/* <header className="mt-20"> */}
+                    {/* <div className="max-w-6xl mx-auto">
+                            <h1 className="text-xl font-semibold text-blue-700">Bitrix App</h1>
+                            Bạn có thể thêm icon/logout button tại đây nếu cần
+                            <nav className=" flex items-center justify-between">
+                                <Link href={ROUTE.SITEMAP_LV1.home.url} className="text-xl font-semibold text-blue-700">
+                                    HOME
+                                </Link>
+                            </nav>
+                        </div> */}
+                    {/* </header> */}
+                    <Navbar />
 
-                <main className="flex-1 flex items-center justify-center px-4 py-8">
-                    <div className="w-full max-w-3xl">{children}</div>
-                </main>
+                    <main className="container mx-auto mt-16">
+                        <div className="w-full">{children}</div>
+                    </main>
 
-                <footer className="text-center text-sm text-gray-500 py-4">© {new Date().getFullYear()} Bitrix App. All rights reserved.</footer>
+                    <footer className="text-center text-sm text-gray-500 py-4">© {new Date().getFullYear()} xuanhieu.bitrix24.vn</footer>
+                </QueryClientProviderComp>
             </body>
         </html>
     );
