@@ -54,7 +54,8 @@ export const refreshToken = async () => {
 };
 export const getToken = async (member_id: string) => {
     try {
-        const res = await axiosNoInterceptor.get(`/auth/token?member_id=${member_id}`);
+        //đang bị lỗi nên phải dùng interceptor tạm
+        const res = await axiosInterceptor.get(`/auth/token?member_id=${member_id}`);
         console.log('res auth', res?.data);
         return res.data;
     } catch (err: any) {
