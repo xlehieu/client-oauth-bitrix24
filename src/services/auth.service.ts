@@ -57,9 +57,7 @@ export const getToken = async (member_id: string) => {
     try {
         //đang bị lỗi nên phải dùng interceptor tạm
         console.log('AXIOS URL', axiosInterceptor.defaults.baseURL + '/auth/token', member_id);
-        const res = await axiosNoInterceptor.get(`/auth/token`, {
-            params: { member_id },
-        });
+        const res = await axiosNoInterceptor.get(`/auth/token?member_id=${member_id}`);
 
         console.log('res auth', res?.data);
         return res.data;
