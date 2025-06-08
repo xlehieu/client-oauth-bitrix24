@@ -12,7 +12,6 @@ export default function BitrixAuth() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const member_id = searchParams.get('member_id');
-    const getTokenMutation = useMutationHook(async (member_id: string) => await AuthService.getToken(member_id));
     let token: any;
     if (member_id) token = useQueryHook(member_id + '', AuthService.getToken(member_id!));
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function BitrixAuth() {
             localStorage.setItem('access_token', token.data);
             router.push(ROUTE.SITEMAP_LV1.home.url);
         }
-    }, [token]);
+    }, []);
     useEffect(() => {});
     return (
         <>
@@ -31,7 +30,7 @@ export default function BitrixAuth() {
                 <h1>Ứng dụng Bitrix của tôi</h1>
                 <p>Ứng dụng này đã được cài đặt thành công trên Bitrix24.</p>
                 <p>Member ID: {member_id}</p>
-                <p>Token: {getTokenMutation.data}</p>
+                <p>Token: {token.data}</p>
             </main>
         </>
     );
