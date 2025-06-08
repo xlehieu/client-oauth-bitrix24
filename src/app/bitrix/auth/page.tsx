@@ -7,19 +7,21 @@ import Head from 'next/head';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import * as AuthService from '@/services/auth.service';
 import ROUTE from '@/config/routes';
+import { useQueryHook } from '@/hooks/useQueryHook';
 export default function BitrixAuth() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [member_id, setMemberId] = useState<string | null>(searchParams.get('member_id'));
+    const member_id = searchParams.get('member_id');
     const getTokenMutation = useMutationHook(async (member_id: string) => await AuthService.getToken(member_id));
+    let token: any;
+    if (member_id) token = useQueryHook(member_id + '', AuthService.getToken(member_id!));
     useEffect(() => {
-        if (!member_id) return;
-        getTokenMutation.mutate(member_id || '');
-        const access_token = getTokenMutation.data as string;
-        localStorage.setItem('access_token', access_token);
-        router.push(ROUTE.SITEMAP_LV1.home.url);
-    }, [member_id]);
-
+        if (token?.data) {
+            localStorage.setItem('access_token', token.data);
+            router.push(ROUTE.SITEMAP_LV1.home.url);
+        }
+    }, [token]);
+    useEffect(() => {});
     return (
         <>
             {/* <Head>
