@@ -1,3 +1,4 @@
+import axios from 'axios';
 import axiosInterceptor from '../config/axios.interceptor';
 import axiosNoInterceptor from '../config/axios.nointerceptor';
 
@@ -49,13 +50,16 @@ export const refreshToken = async () => {
         const res = await axiosInterceptor.post(`/auth/refresh-token`, { withCredentials: true });
         return res;
     } catch (err: any) {
-        throw new Error(err.response.data.message);
+        console.log('ERROR R TOKEN: ', err);
     }
 };
 export const getToken = async (member_id: string) => {
     try {
         //đang bị lỗi nên phải dùng interceptor tạm
-        const res = await axiosInterceptor.get(`/auth/token?member_id=${member_id}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/token`, {
+            params: { member_id },
+            withCredentials: true, // nếu cần gửi cookie
+        });
         console.log('res auth', res?.data);
         return res.data;
     } catch (err: any) {
