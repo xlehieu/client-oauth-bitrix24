@@ -5,7 +5,7 @@ import { useQueryHook } from '@/hooks/useQueryHook';
 import ROUTE from '@/config/routes';
 import { useQuery } from '@tanstack/react-query';
 const List = () => {
-    const query = useQueryHook('query list contact', async () => ApiService.getDataApiBitrix(ROUTE.SITEMAP_LV3.list.method, {}));
+    const query = useQueryHook('query list contact', ApiService.getDataApiBitrix(ROUTE.SITEMAP_LV3.list.method, {}));
     useEffect(() => {
         if (query.isSuccess) {
             console.log('query.data', query.data);
