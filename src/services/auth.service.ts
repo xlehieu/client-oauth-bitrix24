@@ -59,6 +59,6 @@ export const getToken = async (member_id: string) => {
         console.log('res auth', res?.data);
         return res.data;
     } catch (err: any) {
-        throw new Error(err.response.data.message);
+        console.log('ERROR GET TOKEN: ', err);
     }
 };
