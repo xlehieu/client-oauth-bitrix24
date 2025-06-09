@@ -8,11 +8,9 @@ const List = ({
     tableHeader = [],
     method = '',
     title = '',
-    isAdd = true,
-    urlAddPage = '',
+    urlAddPage,
 }: {
     urlAddPage?: string;
-    isAdd?: boolean;
     tableHeader: HeadCell[];
     method: string;
     title?: string;
@@ -34,7 +32,7 @@ const List = ({
         <div className="mt-6">
             <div className="flex justify-between">
                 {title && <h1 className="text-xl font-semibold text-gray-800">{title}</h1>}
-                {isAdd && (
+                {urlAddPage && (
                     <Link className="px-2 py-1 rounded bg-amber-900" href={urlAddPage}>
                         Thêm mới
                     </Link>

@@ -9,8 +9,8 @@ const ContactCreatePage = () => {
     const submitMutation = useMutationHook((data) => ApiService.callApiBitrix(ROUTE.SITEMAP_LV3.add.method, data));
     const [openAlert, setOpenAlert] = useState(false);
     const handleSubmitContact = async (data: any) => {
-        console.log('Dữ liệu gửi lên Bitrix:', { FIELD: data });
-        submitMutation.mutate({ FIELD: data });
+        console.log('Dữ liệu gửi lên Bitrix:', { FIELDS: data });
+        submitMutation.mutate({ FIELDS: data });
     };
     useEffect(() => {
         if (submitMutation.isSuccess) {

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ROUTE from '@/config/routes';
-const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedirect?: boolean }) => {
+const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
     const router = useRouter();
     const [formData, setFormData] = useState<any>({
         NAME: '',

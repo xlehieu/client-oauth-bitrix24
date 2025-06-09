@@ -47,7 +47,12 @@ const contactTableHeader: HeadCell[] = [
 const ContactList = () => {
     return (
         <div>
-            <List tableHeader={contactTableHeader} method={ROUTE.SITEMAP_LV3.list.method} title={ROUTE.SITEMAP_LV3.list.name} />
+            <List
+                tableHeader={contactTableHeader}
+                method={ROUTE.SITEMAP_LV3.list.method}
+                title={ROUTE.SITEMAP_LV3.list.name}
+                urlAddPage={ROUTE.SITEMAP_LV3.add.url}
+            />
         </div>
     );
 };
