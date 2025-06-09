@@ -106,29 +106,29 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                     value={formData.ADDRESS}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
-                    placeholder="Ví dụ: P. Bình Trị Đông B, 123 Lê Văn Quới"
+                    placeholder="Ví dụ: Số 1, Đường Lê Phụng Hiểu, Quận Hoàn Kiếm, TP Hà Nội"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700">Quận / Huyện</label>
+                <label className="block text-sm font-medium text-gray-700">Tình/ Thành phố</label>
                 <input
                     name="ADDRESS_CITY"
                     value={formData.ADDRESS_CITY}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
-                    placeholder="Ví dụ: Bình Tân"
+                    placeholder="Ví dụ: Hà Nội"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700">Tỉnh / Thành phố</label>
+                <label className="block text-sm font-medium text-gray-700">Quốc gia</label>
                 <input
                     name="ADDRESS_COUNTRY"
                     value={formData.ADDRESS_COUNTRY}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
-                    placeholder="Ví dụ: TP. Hồ Chí Minh"
+                    placeholder="Ví dụ: Việt Nam"
                 />
             </div>
 

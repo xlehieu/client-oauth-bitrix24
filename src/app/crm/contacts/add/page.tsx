@@ -40,6 +40,11 @@ const ContactCreatePage = () => {
     };
     useEffect(() => {
         if (submitMutation.isSuccess) {
+            if (submitMutation.data?.error || !submitMutation.data) {
+                setTitle('Thêm liên hệ thất bại');
+                setOpenAlert(true);
+                return;
+            }
             setTitle('Thêm liên hệ thành công');
             setOpenAlert(true);
             // const timeout = setTimeout(() => {
@@ -51,8 +56,10 @@ const ContactCreatePage = () => {
         <div className="p-6 bg-gray-50 min-h-screen">
             <AddContactForm onSubmit={handleSubmitContact} />
             {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
-            {openAlert && <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded">✅ {title}</div>}
-            {submitMutation.isPending && <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded">⏳ Đang xử lý...</div>}
+            {openAlert && <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded z-[1000]">✅ {title}</div>}
+            {submitMutation.isPending && (
+                <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[1000]">⏳ Đang xử lý...</div>
+            )}
         </div>
     );
 };
