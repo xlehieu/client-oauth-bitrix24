@@ -8,57 +8,41 @@ import EnhancedTable, { HeadCell } from '@/components/table/EnhancedTable';
 const contactTableHeader: HeadCell[] = [
     {
         id: 'ID',
-        numeric: false,
-        disablePadding: false,
         label: 'ID',
         isHide: false,
     },
     {
         id: 'NAME',
-        numeric: false,
-        disablePadding: false,
         label: 'NAME',
         isHide: false,
     },
     {
         id: 'LAST_NAME',
-        numeric: false,
-        disablePadding: false,
         label: 'LAST_NAME',
         isHide: false,
     },
     {
         id: 'EMAIL',
-        numeric: false,
-        disablePadding: false,
         label: 'EMAIL',
         isHide: false,
     },
     {
         id: 'PHONE',
-        numeric: false,
-        disablePadding: false,
         label: 'PHONE',
         isHide: false,
     },
     {
         id: 'ADDRESS',
-        numeric: false,
-        disablePadding: false,
         label: 'ADDRESS',
         isHide: false,
     },
     {
         id: 'ADDRESS_CITY',
-        numeric: false,
-        disablePadding: false,
         label: 'ADDRESS_CITY',
         isHide: true,
     },
     {
         id: 'ADDRESS_COUNTRY',
-        numeric: false,
-        disablePadding: false,
         label: 'ADDRESS_COUNTRY',
         isHide: true,
     },
@@ -76,11 +60,11 @@ const List = () => {
             console.log('query.data', query.data);
             setRows(query.data.result);
         }
-    }, [query]);
+    }, [query.isSuccess]);
     return (
         <div className="mt-6">
             DANH SÁCH LIÊN HỆ
-            <EnhancedTable headCells={contactTableHeader} pageSize={10} rows={rows} key={'table contact'} isSelect />
+            <EnhancedTable headCells={contactTableHeader} pageSize={10} rows={rows} key={'table contact'} />
         </div>
     );
 };
