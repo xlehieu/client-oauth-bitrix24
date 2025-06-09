@@ -26,16 +26,25 @@ const ContactCreatePage = () => {
         if (data.PHONE[0].VALUE.startsWith('0')) {
             data.PHONE[0].VALUE = '+84' + data.PHONE[0].VALUE.slice(1);
         }
-        submitMutation.mutate({ FIELDS: data });
+        submitMutation.mutate(
+            { FIELDS: data },
+            {
+                onSuccess: (data) => {
+                    console.log('Dữ liệu trả về từ Bitrix:', data);
+                },
+                onError: (error) => {
+                    console.error('Lỗi khi gửi dữ liệu đến Bitrix:', error);
+                },
+            },
+        );
     };
     useEffect(() => {
         if (submitMutation.isSuccess) {
-            console.log('Dữ liệu trả về từ Bitrix:', submitMutation.data);
             setTitle('Thêm liên hệ thành công');
             setOpenAlert(true);
-            const timeout = setTimeout(() => {
-                submitMutation.reset();
-            }, 1000); // delay 1 giây
+            // const timeout = setTimeout(() => {
+            //     submitMutation.reset();
+            // }, 1000); // delay 1 giây
         }
     }, [submitMutation.isSuccess, submitMutation.data]);
     return (
@@ -43,6 +52,7 @@ const ContactCreatePage = () => {
             <AddContactForm onSubmit={handleSubmitContact} />
             {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
             {openAlert && <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded">✅ {title}</div>}
+            {submitMutation.isPending && <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded">⏳ Đang xử lý...</div>}
         </div>
     );
 };
