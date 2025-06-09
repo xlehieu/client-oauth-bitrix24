@@ -1,6 +1,6 @@
 import React from 'react';
 import List from './List';
-import { HeadCell } from '@/components/table/EnhancedTable';
+import { HeadCell } from '@/components/table/TableCF';
 import ROUTE from '@/config/routes';
 const contactTableHeader: HeadCell[] = [
     {

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import * as ApiService from '@/services/apiBitrix.service';
 import { useQueryHook } from '@/hooks/useQueryHook';
-import TableCF, { HeadCell } from '@/components/table/EnhancedTable';
+import TableCF, { HeadCell } from '@/components/table/TableCF';
 import Link from 'next/link';
 const List = ({
     tableHeader = [],

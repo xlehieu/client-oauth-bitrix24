@@ -71,7 +71,7 @@ export default function Navbar() {
                             </Box>
                         </Box>
 
-                        <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' }, minHeight: 400, gap: 1 }}>
                             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
                                 <MenuIcon />
                             </IconButton>

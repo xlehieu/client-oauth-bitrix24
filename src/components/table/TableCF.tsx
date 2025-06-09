@@ -32,7 +32,7 @@ export default function TableCF({ headCells, rows, pageSize }: { headCells: Head
                         {headCells
                             .filter((item) => !item.isHide)
                             .map((headCell) => (
-                                <TableCell key={headCell.id} align="right">
+                                <TableCell key={headCell.id} align="center">
                                     {headCell.label}
                                 </TableCell>
                             ))}
