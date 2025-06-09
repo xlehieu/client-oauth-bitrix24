@@ -6,8 +6,8 @@ import ROUTE from '@/config/routes';
 const ContactCreatePage = () => {
     const submitMutation = useMutationHook((data) => ApiService.callApiBitrix(ROUTE.SITEMAP_LV3.add.method, data));
     const handleSubmitContact = async (data: any) => {
-        console.log('Dữ liệu gửi lên Bitrix:', data);
-        submitMutation.mutate(data);
+        console.log('Dữ liệu gửi lên Bitrix:', { FIELD: data });
+        submitMutation.mutate({ FIELD: data });
     };
 
     return (

@@ -7,8 +7,14 @@ const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedi
     const [formData, setFormData] = useState<any>({
         NAME: '',
         LAST_NAME: '',
-        EMAIL: {},
-        PHONE: {},
+        EMAIL: {
+            VALUE: '',
+            VALUE_TYPE: 'WORK',
+        },
+        PHONE: {
+            VALUE: '',
+            VALUE_TYPE: 'WORK',
+        },
         ADDRESS: '', // phường/xã, tên đường, số nhà
         ADDRESS_CITY: '', // quận/huyện
         ADDRESS_COUNTRY: '', // tỉnh/thành phố
@@ -69,7 +75,7 @@ const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedi
                 <input
                     name="EMAIL"
                     type="email"
-                    value={formData.EMAIL}
+                    value={formData.EMAIL.VALUE}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="example@email.com"
@@ -81,7 +87,7 @@ const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedi
                 <label className="block text-sm font-medium text-gray-700">Số điện thoại</label>
                 <input
                     name="PHONE"
-                    value={formData.PHONE}
+                    value={formData.PHONE.VALUE}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="Nhập số điện thoại"
