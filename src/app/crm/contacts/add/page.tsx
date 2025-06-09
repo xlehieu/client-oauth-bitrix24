@@ -10,13 +10,21 @@ const ContactCreatePage = () => {
     const [openAlert, setOpenAlert] = useState(false);
     const [title, setTitle] = useState('');
     const handleSubmitContact = async (data: any) => {
-        if (!data.NAME || !data.LAST_NAME || !data.EMAIL.VALUE || !data.PHONE.VALUE || !data.ADDRESS || !data.ADDRESS_CITY || !data.ADDRESS_COUNTRY) {
+        if (
+            !data.NAME ||
+            !data.LAST_NAME ||
+            !data.EMAIL[0].VALUE ||
+            !data.PHONE[0].VALUE ||
+            !data.ADDRESS ||
+            !data.ADDRESS_CITY ||
+            !data.ADDRESS_COUNTRY
+        ) {
             setTitle('Vui lòng nhập đầy đủ thông tin');
             setOpenAlert(true);
             return;
         }
-        if (data.PHONE.VALUE && data.PHONE.VALUE.startWith('0')) {
-            data.PHONE.VALUE = '+84' + data.PHONE.slice(1);
+        if (data.PHONE[0].VALUE.startsWith('0')) {
+            data.PHONE[0].VALUE = '+84' + data.PHONE[0].VALUE.slice(1);
         }
         submitMutation.mutate({ FIELDS: data });
     };
@@ -25,13 +33,16 @@ const ContactCreatePage = () => {
             console.log('Dữ liệu trả về từ Bitrix:', submitMutation.data);
             setTitle('Thêm liên hệ thành công');
             setOpenAlert(true);
-            submitMutation.reset();
+            const timeout = setTimeout(() => {
+                submitMutation.reset();
+            }, 1000); // delay 1 giây
         }
     }, [submitMutation.isSuccess, submitMutation.data]);
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <AddContactForm onSubmit={handleSubmitContact} />
-            {submitMutation.isSuccess && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
+            {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
+            {openAlert && <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded">✅ {title}</div>}
         </div>
     );
 };
