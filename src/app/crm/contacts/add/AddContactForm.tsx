@@ -7,14 +7,18 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
     const [formData, setFormData] = useState<any>({
         NAME: '',
         LAST_NAME: '',
-        EMAIL: {
-            VALUE: '',
-            VALUE_TYPE: 'WORK',
-        },
-        PHONE: {
-            VALUE: '',
-            VALUE_TYPE: 'WORK',
-        },
+        EMAIL: [
+            {
+                VALUE: '',
+                VALUE_TYPE: 'WORK',
+            },
+        ],
+        PHONE: [
+            {
+                VALUE: '',
+                VALUE_TYPE: 'WORK',
+            },
+        ],
         ADDRESS: '', // phường/xã, tên đường, số nhà
         ADDRESS_CITY: '', // quận/huyện
         ADDRESS_COUNTRY: '', // tỉnh/thành phố
@@ -25,10 +29,12 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
         setFormData((prev: any) => {
             let newValue = { ...prev };
             if (['EMAIL', 'PHONE'].includes(name)) {
-                newValue[name] = {
-                    VALUE: value,
-                    VALUE_TYPE: 'WORK',
-                };
+                newValue[name] = [
+                    {
+                        VALUE: value,
+                        VALUE_TYPE: 'WORK',
+                    },
+                ];
             }
             newValue[name] = value;
             return newValue;
@@ -74,7 +80,7 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                 <input
                     name="EMAIL"
                     type="email"
-                    value={formData.EMAIL.VALUE}
+                    value={formData.EMAIL[0].VALUE}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="example@email.com"
@@ -86,7 +92,7 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                 <label className="block text-sm font-medium text-gray-700">Số điện thoại</label>
                 <input
                     name="PHONE"
-                    value={formData.PHONE.VALUE}
+                    value={formData.PHONE[0].VALUE}
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="Nhập số điện thoại"
