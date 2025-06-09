@@ -35,8 +35,7 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                         VALUE_TYPE: 'WORK',
                     },
                 ];
-            }
-            newValue[name] = value;
+            } else newValue[name] = value;
             return newValue;
         });
     };
