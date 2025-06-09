@@ -30,10 +30,10 @@ const List = ({
     }, [query.isSuccess]);
     return (
         <div className="mt-6">
-            <div className="flex justify-between">
+            <div className="flex justify-between mb-4">
                 {title && <h1 className="text-xl font-semibold text-gray-800">{title}</h1>}
                 {urlAddPage && (
-                    <Link className="px-2 py-1 rounded bg-amber-900" href={urlAddPage}>
+                    <Link className="px-2 py-1 rounded bg-amber-900 text-white" href={urlAddPage}>
                         Thêm mới
                     </Link>
                 )}

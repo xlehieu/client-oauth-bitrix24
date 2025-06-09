@@ -17,7 +17,7 @@ const ContactCreatePage = () => {
             setOpenAlert(true);
             submitMutation.reset();
         }
-    }, [submitMutation]);
+    }, [submitMutation.isSuccess, submitMutation.data]);
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <AddContactForm onSubmit={handleSubmitContact} />
