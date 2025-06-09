@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Triển Khai ứng dụng tích hợp vào Bitrix24 - phía client Lên Vercel
 
-## Getting Started
+## 📦 Giới thiệu
 
-First, run the development server:
+Ứng dụng phía client tích hợp vào Bitrix24 em sử dụng Nextjs
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🧱 Trước khi bắt đầu
+
+Trước khi tiến hành deploy, bạn cần đảm bảo:
+
+-   ✅ Anh/chị đăng nhập Vercel: [https://vercel.com/signup](https://vercel.com/signup)
+-   ✅ Dự án Next.js đã được push lên GitHub, GitLab hoặc Bitbucket
+-   ✅ Đã cài đặt các dependency và chạy thử thành công local với:
+
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+---
+
+Thiết lập biến môi trường trong file `.env`:
+
+    ```env
+    PORT=8080
+    BITRIX_CLIENT_ID=local.6840f32c4595b6.11637008
+    BITRIX_CLIENT_SECRET=RWwFsClBMjCBns7r63TPu9Pl6o4yRncrv7Ef3W0XothoPqcNpa
+    FRONTEND_URL=http://localhost:3000
+    DATABASE_URI=mongodb+srv://xlehieu:Hieumao2003@cluster0.uwnpg.mongodb.net/OAuthBitrix?retryWrites=true&w=majority&appName=Cluster0
+    ALLOWED_ORIGINS=http://localhost:3000,https://client-oauth-bitrix24.vercel.app
+    JWT_SECRET=i_want_to_work_at_AASC
+    ```
+
+## 🛠️ Cấu Hình deploy Vercel
+
+-   ✅ Anh/chị đăng nhập Vercel: [https://vercel.com/signup](https://vercel.com/signup)
+-   ✅ Dự án Next.js đã được push lên GitHub, GitLab hoặc Bitbucket
+    > 🔧 Để server có thể chạy nhanh hơn thì sau khi deploy anh chị có thể cấu hình ở Vercel: Settings => Functions => Advanced Settings => đổi sang Asia Pacific ạ
+
+❗Phía client dùng Next thì mục Build and Output Settings để mặc định ạ  
+🔒 Các biến môi trường ở mục Enviroment Variables:
+
+```env
+    PORT=8080
+    BITRIX_CLIENT_ID=local.6840f32c4595b6.11637008
+    BITRIX_CLIENT_SECRET=RWwFsClBMjCBns7r63TPu9Pl6o4yRncrv7Ef3W0XothoPqcNpa
+    FRONTEND_URL=http://localhost:3000
+    DATABASE_URI=mongodb+srv://xlehieu:Hieumao2003@cluster0.uwnpg.mongodb.net/OAuthBitrix?retryWrites=true&w=majority&appName=Cluster0
+    ALLOWED_ORIGINS=http://localhost:3000,https://client-oauth-bitrix24.vercel.app
+    JWT_SECRET=i_want_to_work_at_AASC
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+===>>> Hoàn tất
