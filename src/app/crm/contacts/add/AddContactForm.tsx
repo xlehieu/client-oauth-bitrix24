@@ -85,8 +85,14 @@ const AddContactForm = ({
                                             {
                                                 console.log('itemInputCfMultiple', itemInputCfMultiple);
                                                 console.log(
-                                                    'Array.isArray(itemInputCfMultiple?.multipleField)',
-                                                    Array.isArray(itemInputCfMultiple?.multipleField),
+                                                    'Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ',
+                                                    Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField,
+                                                );
+                                                console.log('itemInputCfMultiple?.multipleField', itemInputCfMultiple?.multipleField);
+                                                console.log('itemInputCfMultiple?.[0]?.title', itemInputCfMultiple?.[0]?.title);
+                                                console.log(
+                                                    'formData?.[index]?.inputConfig?.[0]?.valueInput',
+                                                    formData?.[index]?.inputConfig?.[0]?.valueInput,
                                                 );
                                             }
                                             Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
@@ -98,7 +104,7 @@ const AddContactForm = ({
                                                             </label>
                                                             <input
                                                                 name={String(indexInputCf) + itemInputCfMultiple?.name + '0'}
-                                                                value={formData?.[inputCf.name]?.[0]?.valueInput}
+                                                                value={formData?.[index]?.inputConfig?.[0]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 0)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
@@ -112,7 +118,7 @@ const AddContactForm = ({
                                                             </label>
                                                             <input
                                                                 name={String(indexInputCf) + itemInputCfMultiple.name + '1'}
-                                                                value={formData?.[inputCf.name]?.[1]?.valueInput}
+                                                                value={formData?.[index]?.inputConfig?.[1]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 1)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
