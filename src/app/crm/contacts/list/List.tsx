@@ -78,7 +78,8 @@ const List = () => {
         }
     }, [query]);
     return (
-        <div>
+        <div className="mt-6">
+            DANH SÁCH LIÊN HỆ
             <EnhancedTable headCells={contactTableHeader} pageSize={10} rows={rows} key={'table contact'} isSelect />
         </div>
     );
