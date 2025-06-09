@@ -100,29 +100,33 @@ const AddContactForm = ({
                                                     <div className="flex ">
                                                         <div>
                                                             <label className="block text-sm font-medium text-gray-700">
-                                                                {itemInputCfMultiple?.[0]?.title}
+                                                                {itemInputCfMultiple?.multipleField?.[0]?.title || ''}
                                                             </label>
                                                             <input
-                                                                name={String(indexInputCf) + itemInputCfMultiple?.name + '0'}
+                                                                name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'}
                                                                 value={formData?.[index]?.inputConfig?.[0]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 0)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
-                                                                    itemInputCfMultiple?.[0]?.placeholder || 'Nhập' + itemInputCfMultiple?.[0]?.title
+                                                                    itemInputCfMultiple?.multipleField?.[0]?.placeholder ||
+                                                                    'Nhập' + itemInputCfMultiple?.multipleField?.[0]?.title ||
+                                                                    ''
                                                                 }
                                                             />
                                                         </div>
                                                         <div>
                                                             <label className="block text-sm font-medium text-gray-700">
-                                                                {itemInputCfMultiple?.[1]?.title}
+                                                                {itemInputCfMultiple?.multipleField?.[1]?.title || ''}
                                                             </label>
                                                             <input
-                                                                name={String(indexInputCf) + itemInputCfMultiple.name + '1'}
+                                                                name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '1'}
                                                                 value={formData?.[index]?.inputConfig?.[1]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 1)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
-                                                                    itemInputCfMultiple?.[1]?.placeholder || 'Nhập ' + itemInputCfMultiple?.[1]?.title
+                                                                    itemInputCfMultiple?.multipleField?.[1]?.placeholder ||
+                                                                    'Nhập ' + itemInputCfMultiple?.multipleField?.[1]?.title ||
+                                                                    ''
                                                                 }
                                                             />
                                                         </div>
