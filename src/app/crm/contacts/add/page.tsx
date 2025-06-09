@@ -1,11 +1,13 @@
 'use client';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useRouter } from 'next/navigation';
 import AddContactForm from './AddContactForm';
 import * as ApiService from '@/services/apiBitrix.service';
 import ROUTE from '@/config/routes';
 import { useEffect, useState } from 'react';
 import FillAlert from '@/components/Alert/FillAlert';
 const ContactCreatePage = () => {
+    const router = useRouter();
     const submitMutation = useMutationHook((data) => ApiService.callApiBitrix(ROUTE.SITEMAP_LV3.add.method, data));
     const [openAlert, setOpenAlert] = useState(false);
     const [title, setTitle] = useState('');
@@ -47,6 +49,7 @@ const ContactCreatePage = () => {
             }
             setTitle('Thêm liên hệ thành công');
             setOpenAlert(true);
+            router.push(ROUTE.SITEMAP_LV3.list.url);
             // const timeout = setTimeout(() => {
             //     submitMutation.reset();
             // }, 1000); // delay 1 giây
@@ -56,9 +59,8 @@ const ContactCreatePage = () => {
         <div className="p-6 bg-gray-50 min-h-screen">
             <AddContactForm onSubmit={handleSubmitContact} />
             {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
-            {openAlert && <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded z-[1000]">✅ {title}</div>}
             {submitMutation.isPending && (
-                <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[1000]">⏳ Đang xử lý...</div>
+                <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[999999999]">⏳ Đang xử lý...</div>
             )}
         </div>
     );
