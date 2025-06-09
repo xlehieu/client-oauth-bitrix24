@@ -92,7 +92,7 @@ const AddContactForm = ({
                                             );
                                             console.log(
                                                 "String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'",
-                                                String(indexInputCf) + itemInputCfMultiple?.name || '' + '0',
+                                                String(indexInputCf) + inputCf?.name || '' + '0',
                                             );
                                             console.log(
                                                 'itemInputCfMultiple?.multipleField?.[0]?.placeholder',
@@ -107,7 +107,7 @@ const AddContactForm = ({
                                                             {itemInputCfMultiple?.multipleField?.[0]?.title || ''}
                                                         </label>
                                                         <input
-                                                            name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'}
+                                                            name={String(indexInputCf) + (inputCf?.name || '') + '0'}
                                                             value={itemInputCfMultiple?.multipleField?.[0]?.valueInput}
                                                             onChange={(e) => handleChange(e, indexInputCf, 0)}
                                                             className="w-full border rounded px-3 py-2 mt-1"
@@ -123,7 +123,7 @@ const AddContactForm = ({
                                                             {itemInputCfMultiple?.multipleField?.[1]?.title || ''}
                                                         </label>
                                                         <input
-                                                            name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '1'}
+                                                            name={String(indexInputCf) + (inputCf?.name || '') + '1'}
                                                             value={itemInputCfMultiple?.multipleField?.[1]?.valueInput}
                                                             onChange={(e) => handleChange(e, indexInputCf, 1)}
                                                             className="w-full border rounded px-3 py-2 mt-1"
