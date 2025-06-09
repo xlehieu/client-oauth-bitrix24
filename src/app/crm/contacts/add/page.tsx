@@ -62,13 +62,13 @@ const ContactCreatePage = () => {
                     multipleField: [
                         {
                             isRequired: true,
-                            placeholder: 'Nhập email',
+                            placeholder: 'Nhập số điện thoại',
                             value: 'VALUE',
                             valueInput: '',
                         },
                         {
                             isRequired: true,
-                            placeHolder: 'Nhập loại email',
+                            placeHolder: 'Nhập loại số điện thoại',
                             value: 'VALUE_TYPE',
                             valueInput: '',
                         },
@@ -108,14 +108,14 @@ const ContactCreatePage = () => {
                     multipleField: [
                         {
                             isRequired: true,
-                            placeholder: 'Nhập email',
+                            placeholder: 'Nhập tên ngân hàng',
                             value: 'BANK_NAME',
                             valueInput: '',
                         },
                         {
                             value: 'BANK_ACCOUNT',
                             isRequired: true,
-                            placeHolder: 'Nhập loại email',
+                            placeHolder: 'Nhập số tài khoản',
                             valueInput: '',
                         },
                     ],
