@@ -27,6 +27,11 @@ const SITEMAP_LV3 = {
         url: SITEMAP_LV2.contact.url + '/list',
         method: 'crm.contact.list',
     },
+    add: {
+        name: 'Thêm liên hệ khách hàng',
+        url: SITEMAP_LV2.contact.url + '/add',
+        method: 'crm.contact.add',
+    },
     detail: {
         name: 'Chi tiết liên hệ khách hàng',
         url: SITEMAP_LV2.contact.url + '/detail',

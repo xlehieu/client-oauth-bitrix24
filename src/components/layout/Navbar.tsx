@@ -93,7 +93,9 @@ export default function Navbar() {
                                             <CloseIcon />
                                         </IconButton>
                                     </Box>
-                                    <MenuItem>CRM</MenuItem>
+                                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                        <MenuListComposition menuName="CRM" childrenProps={MENU_CHILDREN_CRM} />
+                                    </Box>
 
                                     <Divider sx={{ my: 3 }} />
                                     {/* <MenuItem>

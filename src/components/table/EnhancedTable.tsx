@@ -49,19 +49,23 @@ export default function TableCF({ headCells, rows, pageSize }: { headCells: Head
                                             {Array.isArray(row[itemHead.id]) ? (
                                                 <TableCell key={`${row.ID} +${indexHead}`} align="right">
                                                     <div className="flex flex-col">
-                                                        {row[itemHead.id].map((item: any, index: number) => {
-                                                            return (
-                                                                <div key={index} className="flex flex-row">
-                                                                    <span className="w-1/2">{`${item?.VALUE_TYPE + ': '}`}</span>
-                                                                    <span className="w-1/2">{`${item?.VALUE}`}</span>
-                                                                </div>
-                                                            );
-                                                        })}
+                                                        {row[itemHead.id].map((item: any, index: number) => (
+                                                            <>
+                                                                {item !== null || item != undefined || item != 'null' || item != 'undefined' ? (
+                                                                    <div key={index} className="flex flex-row">
+                                                                        <span className="w-1/2">{`${item?.VALUE_TYPE || '' + ': '}`}</span>
+                                                                        <span className="w-1/2">{`${item?.VALUE || ''}`}</span>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div></div>
+                                                                )}
+                                                            </>
+                                                        ))}
                                                     </div>
                                                 </TableCell>
                                             ) : (
                                                 <TableCell key={`${row.ID} +${indexHead}`} align="right">
-                                                    {String(row[itemHead.id])}
+                                                    {row[itemHead.id] != null || row[itemHead.id] != undefined ? String(row[itemHead.id]) : ''}
                                                 </TableCell>
                                             )}
                                         </>
