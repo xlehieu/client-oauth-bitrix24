@@ -82,6 +82,13 @@ const AddContactForm = ({
                                     inputCf.inputConfig.length > 0 &&
                                     inputCf.inputConfig.map((itemInputCfMultiple: any, indexInputCf: number) => {
                                         {
+                                            {
+                                                console.log('itemInputCfMultiple', itemInputCfMultiple);
+                                                console.log(
+                                                    'Array.isArray(itemInputCfMultiple?.multipleField)',
+                                                    Array.isArray(itemInputCfMultiple?.multipleField),
+                                                );
+                                            }
                                             Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
                                                 <React.Fragment key={indexInputCf + 'itemInputCfMultiple'}>
                                                     <div className="flex ">
