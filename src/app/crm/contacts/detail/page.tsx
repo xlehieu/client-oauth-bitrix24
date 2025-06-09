@@ -1,7 +1,6 @@
 'use client';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import { useRouter } from 'next/navigation';
-import AddContactForm from './AddContactForm';
 import * as ApiService from '@/services/apiBitrix.service';
 import ROUTE from '@/config/routes';
 import { useEffect, useState } from 'react';
@@ -57,7 +56,6 @@ const ContactCreatePage = () => {
     }, [submitMutation.isSuccess, submitMutation.data]);
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
-            <AddContactForm onSubmit={handleSubmitContact} />
             {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
             {submitMutation.isPending && (
                 <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[999999999]">⏳ Đang xử lý...</div>
