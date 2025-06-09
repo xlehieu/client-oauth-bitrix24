@@ -33,6 +33,9 @@ const MENU_CHILDREN_CRM: IRoute[] = [
     {
         ...ROUTE.SITEMAP_LV3.list,
     },
+    {
+        ...ROUTE.SITEMAP_LV3.add,
+    },
 ];
 export default function Navbar() {
     const [open, setOpen] = React.useState(false);
