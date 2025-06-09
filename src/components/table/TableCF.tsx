@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useRouter } from 'next/navigation';
+import ROUTE from '@/config/routes';
 
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
     return { name, calories, fat, carbs, protein };
@@ -14,16 +16,11 @@ export type HeadCell = {
     id: string;
     label: string;
     isHide: boolean;
+    style?: any;
 };
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 export default function TableCF({ headCells, rows, pageSize }: { headCells: HeadCell[]; rows: any[]; pageSize: number }) {
+    const router = useRouter();
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -32,7 +29,7 @@ export default function TableCF({ headCells, rows, pageSize }: { headCells: Head
                         {headCells
                             .filter((item) => !item.isHide)
                             .map((headCell) => (
-                                <TableCell key={headCell.id} align="center">
+                                <TableCell key={headCell.id} align="center" className="min-w-48" style={headCell.style}>
                                     {headCell.label}
                                 </TableCell>
                             ))}
@@ -40,14 +37,18 @@ export default function TableCF({ headCells, rows, pageSize }: { headCells: Head
                 </TableHead>
                 <TableBody>
                     {rows.map((row, indexRow) => (
-                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableRow
+                            key={row.name}
+                            onClick={() => router.push(`${ROUTE.SITEMAP_LV3.detail.url}?ID=${row?.ID}`)}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
                             {headCells
                                 .filter((item) => !item.isHide)
                                 .map((itemHead, indexHead) => {
                                     return (
                                         <>
                                             {Array.isArray(row[itemHead.id]) ? (
-                                                <TableCell key={`${row.ID} +${indexHead}`} align="right">
+                                                <TableCell key={`${row.ID} +${indexHead}`} align="left">
                                                     <div className="flex flex-col">
                                                         {row[itemHead.id].map((item: any, index: number) => (
                                                             <>

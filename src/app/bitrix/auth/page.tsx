@@ -28,12 +28,9 @@ export default function BitrixAuth() {
             {/* <Head>
                 <script src="https://api.bitrix24.com/api/v1/"></script>
             </Head> */}
-            <main>
-                <h1>Ứng dụng Bitrix của tôi</h1>
-                <p>Ứng dụng này đã được cài đặt thành công trên Bitrix24.</p>
-                <p>Member ID: {member_id}</p>
-                <p>Token: {token.data}</p>
-            </main>
+            <div className="flex justify-center items-center mt-24">
+                <span className="text-3xl">⌛ Loading...</span>.
+            </div>
         </>
     );
 }

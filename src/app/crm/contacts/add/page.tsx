@@ -11,6 +11,118 @@ const ContactCreatePage = () => {
     const submitMutation = useMutationHook((data) => ApiService.callApiBitrix(ROUTE.SITEMAP_LV3.add.method, data));
     const [openAlert, setOpenAlert] = useState(false);
     const [title, setTitle] = useState('');
+
+    const [formData, setformData] = useState<any>([
+        {
+            type: 'text',
+            name: 'NAME',
+            title: 'Tên',
+            isRequired: true,
+            placeholder: 'Nhập tên',
+            valueInput: '',
+        },
+        {
+            type: 'text',
+            name: 'LAST_NAME',
+            title: 'Họ',
+            isRequired: true,
+            placeholder: 'Nhập họ',
+            valueInput: '',
+        },
+        {
+            type: 'multipleField',
+            name: 'EMAIL',
+            title: 'Email',
+            inputConfig: [
+                {
+                    isRequired: true,
+                    multipleField: [
+                        {
+                            title: 'Email',
+                            placeholder: 'Nhập email',
+                            value: 'VALUE',
+                            valueInput: '',
+                        },
+                        {
+                            title: 'Loại email',
+                            value: 'VALUE_TYPE',
+                            placeHolder: 'Nhập loại email',
+                            valueInput: '',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            type: 'multipleField',
+            name: 'PHONE',
+            title: 'Số điện thoại',
+            inputConfig: [
+                {
+                    multipleField: [
+                        {
+                            isRequired: true,
+                            placeholder: 'Nhập email',
+                            value: 'VALUE',
+                            valueInput: '',
+                        },
+                        {
+                            isRequired: true,
+                            placeHolder: 'Nhập loại email',
+                            value: 'VALUE_TYPE',
+                            valueInput: '',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            type: 'text',
+            name: 'ADDRESS',
+            title: 'Địa chỉ',
+            isRequired: true,
+            placeholder: 'Nhập địa chỉ chi tiết',
+            valueInput: '',
+        },
+        {
+            type: 'text',
+            name: 'ADDRESS_CITY',
+            title: 'Thành phố',
+            isRequired: true,
+            placeholder: 'Nhập thành phố',
+            valueInput: '',
+        },
+        {
+            type: 'text',
+            name: 'ADDRESS_COUNTRY',
+            title: 'Quốc gia',
+            isRequired: true,
+            placeholder: 'Nhập quốc gia',
+            valueInput: '',
+        },
+        {
+            type: 'multipleField',
+            name: 'BANK',
+            inputConfig: [
+                {
+                    multipleField: [
+                        {
+                            isRequired: true,
+                            placeholder: 'Nhập email',
+                            value: 'BANK_NAME',
+                            valueInput: '',
+                        },
+                        {
+                            value: 'BANK_ACCOUNT',
+                            isRequired: true,
+                            placeHolder: 'Nhập loại email',
+                            valueInput: '',
+                        },
+                    ],
+                },
+            ],
+        },
+    ]);
     const handleSubmitContact = async (data: any) => {
         if (
             !data.NAME ||
@@ -57,7 +169,7 @@ const ContactCreatePage = () => {
     }, [submitMutation.isSuccess, submitMutation.data]);
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
-            <AddContactForm onSubmit={handleSubmitContact} />
+            <AddContactForm formData={formData} setFormData={setformData} onSubmit={handleSubmitContact} />
             {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
             {submitMutation.isPending && (
                 <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[999999999]">⏳ Đang xử lý...</div>

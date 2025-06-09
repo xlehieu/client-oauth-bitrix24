@@ -35,6 +35,7 @@ const SITEMAP_LV3 = {
     detail: {
         name: 'Chi tiết liên hệ khách hàng',
         url: SITEMAP_LV2.contact.url + '/detail',
+        method: 'crm.contact.get',
     },
 };
 const ROUTE = {

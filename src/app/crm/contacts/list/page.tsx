@@ -32,6 +32,9 @@ const contactTableHeader: HeadCell[] = [
         id: 'ADDRESS',
         label: 'ADDRESS',
         isHide: false,
+        style: {
+            minWidth: '300px',
+        },
     },
     {
         id: 'ADDRESS_CITY',
