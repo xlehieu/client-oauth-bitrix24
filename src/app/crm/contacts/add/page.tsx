@@ -1,3 +1,4 @@
+'use client';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import AddContactForm from './AddContactForm';
 import * as ApiService from '@/services/apiBitrix.service';
