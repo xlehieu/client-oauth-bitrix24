@@ -67,7 +67,7 @@ const List = () => {
     const query = useQueryHook(
         'query list contact',
         ApiService.getDataApiBitrix(ROUTE.SITEMAP_LV3.list.method, {
-            select: contactTableHeader.map((item) => item.id).join(','),
+            select: contactTableHeader.map((item) => item.id),
         }),
     );
     useEffect(() => {
