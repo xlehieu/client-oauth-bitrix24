@@ -89,10 +89,10 @@ const AddContactForm = ({
                                                     Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField,
                                                 );
                                                 console.log('itemInputCfMultiple?.multipleField', itemInputCfMultiple?.multipleField);
-                                                console.log('itemInputCfMultiple?.[0]?.title', itemInputCfMultiple?.[0]?.title);
+                                                console.log('itemInputCfMultiple?.[0]?.title', itemInputCfMultiple?.multipleField?.[0]?.title);
                                                 console.log(
                                                     'formData?.[index]?.inputConfig?.[0]?.valueInput',
-                                                    formData?.[index]?.inputConfig?.[0]?.valueInput,
+                                                    formData?.[index]?.inputConfig?.multipleField?.[0]?.valueInput,
                                                 );
                                             }
                                             Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
@@ -104,7 +104,7 @@ const AddContactForm = ({
                                                             </label>
                                                             <input
                                                                 name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'}
-                                                                value={formData?.[index]?.inputConfig?.[0]?.valueInput}
+                                                                value={formData?.[index]?.inputConfig?.multipleField?.[0]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 0)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
@@ -120,7 +120,7 @@ const AddContactForm = ({
                                                             </label>
                                                             <input
                                                                 name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '1'}
-                                                                value={formData?.[index]?.inputConfig?.[1]?.valueInput}
+                                                                value={formData?.[index]?.inputConfig?.multipleField?.[1]?.valueInput}
                                                                 onChange={(e) => handleChange(e, indexInputCf, 1)}
                                                                 className="w-full border rounded px-3 py-2 mt-1"
                                                                 placeholder={
