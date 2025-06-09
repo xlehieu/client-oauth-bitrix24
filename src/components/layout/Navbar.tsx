@@ -96,7 +96,7 @@ export default function Navbar() {
                                             <CloseIcon />
                                         </IconButton>
                                     </Box>
-                                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                    <Box sx={{ display: 'flex' }}>
                                         <MenuListComposition menuName="CRM" childrenProps={MENU_CHILDREN_CRM} />
                                     </Box>
 

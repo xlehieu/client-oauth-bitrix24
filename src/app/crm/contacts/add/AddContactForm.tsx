@@ -39,7 +39,6 @@ const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedi
         e.preventDefault();
         onSubmit?.(formData); // callback gửi data ra ngoài
         console.log('Contact Submitted:', formData);
-        if (isRedirect) router.push(ROUTE.SITEMAP_LV3.list.url);
     };
 
     return (

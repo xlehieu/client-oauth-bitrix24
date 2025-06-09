@@ -3,7 +3,20 @@ import React, { useEffect, useState } from 'react';
 import * as ApiService from '@/services/apiBitrix.service';
 import { useQueryHook } from '@/hooks/useQueryHook';
 import TableCF, { HeadCell } from '@/components/table/EnhancedTable';
-const List = ({ tableHeader = [], method = '', title = '' }: { tableHeader: HeadCell[]; method: string; title?: string }) => {
+import Link from 'next/link';
+const List = ({
+    tableHeader = [],
+    method = '',
+    title = '',
+    isAdd = true,
+    urlAddPage = '',
+}: {
+    urlAddPage?: string;
+    isAdd?: boolean;
+    tableHeader: HeadCell[];
+    method: string;
+    title?: string;
+}) => {
     const query = useQueryHook(
         'query list',
         ApiService.callApiBitrix(method, {
@@ -19,7 +32,14 @@ const List = ({ tableHeader = [], method = '', title = '' }: { tableHeader: Head
     }, [query.isSuccess]);
     return (
         <div className="mt-6">
-            {title && <h1 className="text-2xl font-semibold text-gray-800">{title}</h1>}
+            <div className="flex justify-between">
+                {title && <h1 className="text-xl font-semibold text-gray-800">{title}</h1>}
+                {isAdd && (
+                    <Link className="px-2 py-1 rounded bg-amber-900" href={urlAddPage}>
+                        Thêm mới
+                    </Link>
+                )}
+            </div>
             <TableCF headCells={tableHeader} pageSize={10} rows={rows} key={'table contact'} />
         </div>
     );
