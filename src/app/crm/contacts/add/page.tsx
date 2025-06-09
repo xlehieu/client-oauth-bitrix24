@@ -61,12 +61,14 @@ const ContactCreatePage = () => {
                 {
                     multipleField: [
                         {
+                            title: 'Số điện thoại',
                             isRequired: true,
                             placeholder: 'Nhập số điện thoại',
                             value: 'VALUE',
                             valueInput: '',
                         },
                         {
+                            title: 'Loại số điện thoại',
                             isRequired: true,
                             placeHolder: 'Nhập loại số điện thoại',
                             value: 'VALUE_TYPE',
@@ -103,16 +105,19 @@ const ContactCreatePage = () => {
         {
             type: 'multipleField',
             name: 'BANK',
+            title: 'Thông tin ngân hàng',
             inputConfig: [
                 {
                     multipleField: [
                         {
+                            title: 'Tên ngân hàng',
                             isRequired: true,
                             placeholder: 'Nhập tên ngân hàng',
                             value: 'BANK_NAME',
                             valueInput: '',
                         },
                         {
+                            title: 'Số tài khoản',
                             value: 'BANK_ACCOUNT',
                             isRequired: true,
                             placeHolder: 'Nhập số tài khoản',
