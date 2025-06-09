@@ -90,45 +90,51 @@ const AddContactForm = ({
                                                 'itemInputCfMultiple?.multipleField?.[0]?.valueInput',
                                                 itemInputCfMultiple?.multipleField?.[0]?.valueInput,
                                             );
+                                            console.log(
+                                                "String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'",
+                                                String(indexInputCf) + itemInputCfMultiple?.name || '' + '0',
+                                            );
+                                            console.log(
+                                                'itemInputCfMultiple?.multipleField?.[0]?.placeholder',
+                                                itemInputCfMultiple?.multipleField?.[0]?.placeholder,
+                                            );
                                         }
                                         {
                                             Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
-                                                <React.Fragment key={indexInputCf + 'itemInputCfMultiple'}>
-                                                    <div className="flex ">
-                                                        <div>
-                                                            <label className="block text-sm font-medium text-gray-700">
-                                                                {itemInputCfMultiple?.multipleField?.[0]?.title || ''}
-                                                            </label>
-                                                            <input
-                                                                name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'}
-                                                                value={itemInputCfMultiple?.multipleField?.[0]?.valueInput}
-                                                                onChange={(e) => handleChange(e, indexInputCf, 0)}
-                                                                className="w-full border rounded px-3 py-2 mt-1"
-                                                                placeholder={
-                                                                    itemInputCfMultiple?.multipleField?.[0]?.placeholder ||
-                                                                    'Nhập' + itemInputCfMultiple?.multipleField?.[0]?.title ||
-                                                                    ''
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <label className="block text-sm font-medium text-gray-700">
-                                                                {itemInputCfMultiple?.multipleField?.[1]?.title || ''}
-                                                            </label>
-                                                            <input
-                                                                name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '1'}
-                                                                value={itemInputCfMultiple?.multipleField?.[1]?.valueInput}
-                                                                onChange={(e) => handleChange(e, indexInputCf, 1)}
-                                                                className="w-full border rounded px-3 py-2 mt-1"
-                                                                placeholder={
-                                                                    itemInputCfMultiple?.multipleField?.[1]?.placeholder ||
-                                                                    'Nhập ' + itemInputCfMultiple?.multipleField?.[1]?.title ||
-                                                                    ''
-                                                                }
-                                                            />
-                                                        </div>
+                                                <div className="flex" key={indexInputCf + 'itemInputCfMultiple'}>
+                                                    <div>
+                                                        <label className="block text-sm font-medium text-gray-700">
+                                                            {itemInputCfMultiple?.multipleField?.[0]?.title || ''}
+                                                        </label>
+                                                        <input
+                                                            name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'}
+                                                            value={itemInputCfMultiple?.multipleField?.[0]?.valueInput}
+                                                            onChange={(e) => handleChange(e, indexInputCf, 0)}
+                                                            className="w-full border rounded px-3 py-2 mt-1"
+                                                            placeholder={
+                                                                itemInputCfMultiple?.multipleField?.[0]?.placeholder ||
+                                                                'Nhập' + itemInputCfMultiple?.multipleField?.[0]?.title ||
+                                                                ''
+                                                            }
+                                                        />
                                                     </div>
-                                                </React.Fragment>
+                                                    <div>
+                                                        <label className="block text-sm font-medium text-gray-700">
+                                                            {itemInputCfMultiple?.multipleField?.[1]?.title || ''}
+                                                        </label>
+                                                        <input
+                                                            name={String(indexInputCf) + itemInputCfMultiple?.name || '' + '1'}
+                                                            value={itemInputCfMultiple?.multipleField?.[1]?.valueInput}
+                                                            onChange={(e) => handleChange(e, indexInputCf, 1)}
+                                                            className="w-full border rounded px-3 py-2 mt-1"
+                                                            placeholder={
+                                                                itemInputCfMultiple?.multipleField?.[1]?.placeholder ||
+                                                                'Nhập ' + itemInputCfMultiple?.multipleField?.[1]?.title ||
+                                                                ''
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
                                             ) : (
                                                 <React.Fragment key={index + 'itemInputCfMultiple'}>
                                                     <div>
