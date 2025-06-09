@@ -267,7 +267,22 @@ export default function EnhancedTable({
                                         </TableCell> */}
                                         {/* Cấu hình lại để truyền mảng row nào cũng được */}
                                         {Object.entries(row).map(([keyRow, value], indexCell) => (
-                                            <TableCell key={indexCell}>{String(value)}</TableCell>
+                                            <>
+                                                {Array.isArray(value) && value?.length > 0 ? (
+                                                    <TableCell key={indexCell}>
+                                                        <div className="flex flex-col">
+                                                            {value.map((itemVal) => (
+                                                                <span>
+                                                                    {`${itemVal?.VALUE_TYPE} : `}
+                                                                    {itemVal?.VALUE}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    </TableCell>
+                                                ) : (
+                                                    <TableCell key={indexCell}>{String(value)}</TableCell>
+                                                )}
+                                            </>
                                         ))}
                                     </TableRow>
                                 );

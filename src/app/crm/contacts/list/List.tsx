@@ -70,14 +70,16 @@ const List = () => {
             select: contactTableHeader.map((item) => item.id),
         }),
     );
+    const [rows, setRows] = useState([]);
     useEffect(() => {
         if (query.isSuccess) {
             console.log('query.data', query.data);
+            setRows(query.data.result);
         }
     }, [query]);
     return (
         <div>
-            <EnhancedTable headCells={contactTableHeader} pageSize={10} rows={[]} key={'table contact'} isSelect />
+            <EnhancedTable headCells={contactTableHeader} pageSize={10} rows={rows} key={'table contact'} isSelect />
         </div>
     );
 };
