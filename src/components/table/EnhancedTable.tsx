@@ -177,7 +177,7 @@ export default function EnhancedTable({
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id);
+            const newSelected = rows.map((n) => n.ID);
             setSelected(newSelected);
             return;
         }
@@ -239,17 +239,17 @@ export default function EnhancedTable({
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
-                                const isItemSelected = selected.includes(row.id);
+                                const isItemSelected = selected.includes(row.ID);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
                                     <TableRow
                                         hover
-                                        onClick={(event) => handleClick(event, row.id)}
+                                        onClick={(event) => handleClick(event, row.ID)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.id}
+                                        key={row.ID}
                                         selected={isItemSelected}
                                         sx={{ cursor: 'pointer' }}
                                     >
