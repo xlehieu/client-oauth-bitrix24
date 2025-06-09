@@ -80,27 +80,9 @@ const AddContactForm = ({
                             <React.Fragment>
                                 {Array.isArray(inputCf.inputConfig) &&
                                     inputCf.inputConfig.length > 0 &&
-                                    inputCf.inputConfig.map((itemInputCfMultiple: any, indexInputCf: number) => {
-                                        {
-                                            console.log(
-                                                'itemInputCfMultiple?.multipleField?.[0]?.title',
-                                                itemInputCfMultiple?.multipleField?.[0]?.title,
-                                            );
-                                            console.log(
-                                                'itemInputCfMultiple?.multipleField?.[0]?.valueInput',
-                                                itemInputCfMultiple?.multipleField?.[0]?.valueInput,
-                                            );
-                                            console.log(
-                                                "String(indexInputCf) + itemInputCfMultiple?.name || '' + '0'",
-                                                String(indexInputCf) + inputCf?.name || '' + '0',
-                                            );
-                                            console.log(
-                                                'itemInputCfMultiple?.multipleField?.[0]?.placeholder',
-                                                itemInputCfMultiple?.multipleField?.[0]?.placeholder,
-                                            );
-                                        }
-                                        {
-                                            Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
+                                    inputCf.inputConfig.map((itemInputCfMultiple: any, indexInputCf: number) => (
+                                        <>
+                                            {Array.isArray(itemInputCfMultiple?.multipleField) && itemInputCfMultiple?.multipleField ? (
                                                 <div className="flex" key={indexInputCf + 'itemInputCfMultiple'}>
                                                     <div>
                                                         <label className="block text-sm font-medium text-gray-700">
@@ -154,9 +136,9 @@ const AddContactForm = ({
                                                         />
                                                     </div>
                                                 </React.Fragment>
-                                            );
-                                        }
-                                    })}
+                                            )}
+                                        </>
+                                    ))}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
