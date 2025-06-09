@@ -1,12 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-
-const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
-    const [formData, setFormData] = useState({
+import { useRouter } from 'next/navigation';
+import ROUTE from '@/config/routes';
+const AddContactForm = ({ onSubmit, isRedirect = true }: { onSubmit: any; isRedirect?: boolean }) => {
+    const router = useRouter();
+    const [formData, setFormData] = useState<any>({
         NAME: '',
         LAST_NAME: '',
-        EMAIL: '',
-        PHONE: '',
+        EMAIL: {},
+        PHONE: {},
         ADDRESS: '', // phường/xã, tên đường, số nhà
         ADDRESS_CITY: '', // quận/huyện
         ADDRESS_COUNTRY: '', // tỉnh/thành phố
@@ -14,16 +16,24 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setFormData((prev: any) => {
+            let newValue = { ...prev };
+            if (['EMAIL', 'PHONE'].includes(name)) {
+                newValue[name] = {
+                    VALUE: value,
+                    VALUE_TYPE: 'WORK',
+                };
+            }
+            newValue[name] = value;
+            return newValue;
+        });
     };
 
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSubmit?.(formData); // callback gửi data ra ngoài
         console.log('Contact Submitted:', formData);
+        if (isRedirect) router.push(ROUTE.SITEMAP_LV3.list.url);
     };
 
     return (
@@ -63,6 +73,7 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="example@email.com"
+                    required
                 />
             </div>
 
@@ -74,6 +85,7 @@ const AddContactForm = ({ onSubmit }: { onSubmit: any }) => {
                     onChange={handleChange}
                     className="w-full border rounded px-3 py-2 mt-1"
                     placeholder="Nhập số điện thoại"
+                    required
                 />
             </div>
 
