@@ -19,7 +19,17 @@ export type HeadCell = {
     style?: any;
 };
 
-export default function TableCF({ headCells, rows, pageSize }: { headCells: HeadCell[]; rows: any[]; pageSize: number }) {
+export default function TableCF({
+    headCells,
+    rows,
+    pageSize,
+    urlDetail,
+}: {
+    urlDetail?: string;
+    headCells: HeadCell[];
+    rows: any[];
+    pageSize: number;
+}) {
     const router = useRouter();
     return (
         <TableContainer component={Paper}>
@@ -39,7 +49,7 @@ export default function TableCF({ headCells, rows, pageSize }: { headCells: Head
                     {rows.map((row, indexRow) => (
                         <TableRow
                             key={row.name}
-                            onClick={() => router.push(`${ROUTE.SITEMAP_LV3.detail.url}?ID=${row?.ID}`)}
+                            onClick={() => router.push(`${urlDetail}?ID=${row?.ID}`)}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             {headCells

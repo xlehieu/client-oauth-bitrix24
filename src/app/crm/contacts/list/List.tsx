@@ -8,12 +8,14 @@ const List = ({
     tableHeader = [],
     method = '',
     title = '',
+    urlDetail,
     urlAddPage,
 }: {
     urlAddPage?: string;
     tableHeader: HeadCell[];
     method: string;
     title?: string;
+    urlDetail?: string;
 }) => {
     const query = useQueryHook(
         'query list',
@@ -38,7 +40,7 @@ const List = ({
                     </Link>
                 )}
             </div>
-            <TableCF headCells={tableHeader} pageSize={10} rows={rows} key={'table contact'} />
+            <TableCF headCells={tableHeader} pageSize={10} rows={rows} key={'table contact'} urlDetail={urlDetail} />
         </div>
     );
 };

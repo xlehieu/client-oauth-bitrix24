@@ -55,6 +55,7 @@ const ContactList = () => {
                 method={ROUTE.SITEMAP_LV3.list.method}
                 title={ROUTE.SITEMAP_LV3.list.name}
                 urlAddPage={ROUTE.SITEMAP_LV3.add.url}
+                urlDetail={ROUTE.SITEMAP_LV3.detail.url}
             />
         </div>
     );
