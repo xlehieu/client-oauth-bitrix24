@@ -11,7 +11,7 @@ const ContactCreatePage = () => {
     const submitMutation = useMutationHook((data) => ApiService.callApiBitrix(ROUTE.SITEMAP_LV3.add.method, data));
     const [openAlert, setOpenAlert] = useState(false);
     const [title, setTitle] = useState('');
-
+    const [type, setType] = useState<'success' | 'error' | 'info' | 'warning'>('success');
     const [formData, setformData] = useState<any>([
         {
             type: 'text',
@@ -35,10 +35,10 @@ const ContactCreatePage = () => {
             title: 'Email',
             inputConfig: [
                 {
-                    isRequired: true,
+                    // isRequired: true,
                     multipleField: [
                         {
-                            title: 'Email',
+                            title: 'Địa chỉ email',
                             placeholder: 'Nhập email',
                             value: 'VALUE',
                             valueInput: 'xlehieu@gmail.com',
@@ -65,7 +65,7 @@ const ContactCreatePage = () => {
                             isRequired: true,
                             placeholder: 'Nhập số điện thoại',
                             value: 'VALUE',
-                            valueInput: '',
+                            valueInput: 'ádfasdf',
                         },
                         {
                             title: 'Loại số điện thoại',
@@ -128,34 +128,32 @@ const ContactCreatePage = () => {
             ],
         },
     ]);
+
     const handleSubmitContact = async (data: any) => {
-        if (
-            !data.NAME ||
-            !data.LAST_NAME ||
-            !data.EMAIL[0].VALUE ||
-            !data.PHONE[0].VALUE ||
-            !data.ADDRESS ||
-            !data.ADDRESS_CITY ||
-            !data.ADDRESS_COUNTRY
-        ) {
-            setTitle('Vui lòng nhập đầy đủ thông tin');
+        try {
+            Object.entries(data).forEach(([key, value]) => {
+                console.log(key, value);
+                if (key === 'PHONE') {
+                    if (Array.isArray(value) && value.length > 0) {
+                        value.forEach((itemValue: any) => {
+                            if (itemValue.VALUE.startsWith('0')) {
+                                itemValue.VALUE = '+84' + itemValue.VALUE.slice(1);
+                            }
+                        });
+                    }
+                }
+            });
+            const dataResponseMutation = await submitMutation.mutateAsync({ FIELDS: data });
+            console.log('dataResponseMutation', dataResponseMutation);
+        } catch (err) {
+            if (err instanceof Error) {
+                setTitle(err.message); // ✅ Truy cập message an toàn
+            } else {
+                setTitle('Đã có lỗi xảy ra'); // fallback
+            }
+            setType('error');
             setOpenAlert(true);
-            return;
         }
-        if (data.PHONE[0].VALUE.startsWith('0')) {
-            data.PHONE[0].VALUE = '+84' + data.PHONE[0].VALUE.slice(1);
-        }
-        submitMutation.mutate(
-            { FIELDS: data },
-            {
-                onSuccess: (data) => {
-                    console.log('Dữ liệu trả về từ Bitrix:', data);
-                },
-                onError: (error) => {
-                    console.error('Lỗi khi gửi dữ liệu đến Bitrix:', error);
-                },
-            },
-        );
     };
     useEffect(() => {
         if (submitMutation.isSuccess) {
@@ -175,7 +173,7 @@ const ContactCreatePage = () => {
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <AddContactForm formData={formData} setFormData={setformData} onSubmit={handleSubmitContact} />
-            {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} />}
+            {openAlert && <FillAlert open={openAlert} setOpen={setOpenAlert} title={title} type={type} />}
             {submitMutation.isPending && (
                 <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded z-[999999999]">⏳ Đang xử lý...</div>
             )}
