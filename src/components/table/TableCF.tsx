@@ -39,7 +39,7 @@ export default function TableCF({
                         {headCells
                             .filter((item) => !item.isHide)
                             .map((headCell) => (
-                                <TableCell key={headCell.id} align="center" className="min-w-48" style={headCell.style}>
+                                <TableCell key={headCell.id} align="center" style={headCell.style}>
                                     {headCell.label}
                                 </TableCell>
                             ))}
@@ -75,7 +75,7 @@ export default function TableCF({
                                                     </div>
                                                 </TableCell>
                                             ) : (
-                                                <TableCell key={`${row.ID} +${indexHead}`} align="right">
+                                                <TableCell key={`${row.ID} +${indexHead}`} align="center">
                                                     {row[itemHead.id] != null || row[itemHead.id] != undefined ? String(row[itemHead.id]) : ''}
                                                 </TableCell>
                                             )}

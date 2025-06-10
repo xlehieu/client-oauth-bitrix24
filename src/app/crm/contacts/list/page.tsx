@@ -22,11 +22,17 @@ const contactTableHeader: HeadCell[] = [
         id: 'EMAIL',
         label: 'EMAIL',
         isHide: false,
+        style: {
+            minWidth: '200px',
+        },
     },
     {
         id: 'PHONE',
         label: 'PHONE',
         isHide: false,
+        style: {
+            minWidth: '200px',
+        },
     },
     {
         id: 'ADDRESS',

@@ -1,21 +1,14 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useQueryHook } from '@/hooks/useQueryHook';
 import * as ApiBitrixService from '@/services/apiBitrix.service';
 import ROUTE from '@/config/routes';
-interface ContactData {
-    ID: string;
-    NAME: string;
-    LAST_NAME: string;
-    EMAIL?: { VALUE: string }[];
-    PHONE?: { VALUE: string }[];
-    [key: string]: any;
-}
 
-const ContactDetail: React.FC = () => {
+const Detail: React.FC = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get('ID');
-    const [contact, setContact] = useState<ContactData | null>(null);
+    const [contact, setContact] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const queryContactById = useQueryHook('queryContactById', ApiBitrixService.callApiBitrix(ROUTE.SITEMAP_LV3.detail.method, { ID: id }));
@@ -59,4 +52,4 @@ const ContactDetail: React.FC = () => {
     );
 };
 
-export default ContactDetail;
+export default Detail;

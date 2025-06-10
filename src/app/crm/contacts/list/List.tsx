@@ -26,7 +26,6 @@ const List = ({
     const [rows, setRows] = useState([]);
     useEffect(() => {
         if (query.isSuccess) {
-            console.log('query.data', query.data);
             setRows(query.data.result);
         }
     }, [query.isSuccess]);
