@@ -9,9 +9,6 @@ import Paper from '@mui/material/Paper';
 import { useRouter } from 'next/navigation';
 import ROUTE from '@/config/routes';
 
-function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
-    return { name, calories, fat, carbs, protein };
-}
 export type HeadCell = {
     id: string;
     label: string;
@@ -31,6 +28,15 @@ export default function TableCF({
     pageSize: number;
 }) {
     const router = useRouter();
+    const parseJson = (dataRow: string): any => {
+        try {
+            const jsonDataRowParse = JSON.parse(dataRow);
+            if (jsonDataRowParse) return jsonDataRowParse;
+            return dataRow;
+        } catch (err) {
+            return dataRow;
+        }
+    };
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -48,38 +54,70 @@ export default function TableCF({
                 <TableBody>
                     {rows.map((row, indexRow) => (
                         <TableRow
-                            key={row.name}
+                            key={row.name + String(indexRow)}
                             onClick={() => router.push(`${urlDetail}?ID=${row?.ID}`)}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            className="hover:cursor-pointer"
                         >
                             {headCells
                                 .filter((item) => !item.isHide)
                                 .map((itemHead, indexHead) => {
                                     return (
-                                        <>
+                                        <React.Fragment key={indexHead}>
                                             {Array.isArray(row[itemHead.id]) ? (
-                                                <TableCell key={`${row.ID} +${indexHead}`} align="left">
+                                                <TableCell key={`${row.ID} +${indexHead}`} align="center">
                                                     <div className="flex flex-col">
                                                         {row[itemHead.id].map((item: any, index: number) => (
-                                                            <>
+                                                            <React.Fragment key={index}>
                                                                 {item !== null || item != undefined || item != 'null' || item != 'undefined' ? (
-                                                                    <div key={index} className="flex flex-row">
-                                                                        <span className="w-1/2">{`${item?.VALUE_TYPE || '' + ': '}`}</span>
-                                                                        <span className="w-1/2">{`${item?.VALUE || ''}`}</span>
+                                                                    <div key={index} className="grid grid-cols-2">
+                                                                        <span className="text-right pr-2">{`${(item?.VALUE_TYPE || '') + ':'}`}</span>
+                                                                        <span className="text-left">{`${item?.VALUE || ''}`}</span>
                                                                     </div>
                                                                 ) : (
                                                                     <div></div>
                                                                 )}
-                                                            </>
+                                                            </React.Fragment>
                                                         ))}
                                                     </div>
                                                 </TableCell>
                                             ) : (
                                                 <TableCell key={`${row.ID} +${indexHead}`} align="center">
-                                                    {row[itemHead.id] != null || row[itemHead.id] != undefined ? String(row[itemHead.id]) : ''}
+                                                    {row[itemHead.id] != null || row[itemHead.id] != undefined ? (
+                                                        <React.Fragment>
+                                                            {Array.isArray(parseJson(String(row[itemHead.id]))) ? (
+                                                                <React.Fragment>
+                                                                    {/*  */}
+                                                                    {parseJson(String(row[itemHead.id])).map((item: any, index: number) => (
+                                                                        <React.Fragment key={String(index) + String(indexRow)}>
+                                                                            {typeof item === 'object' ? (
+                                                                                <div key={index} className="grid grid-cols-2">
+                                                                                    {Object.entries(item).map(([key, value], indexKey) => (
+                                                                                        <React.Fragment key={index + indexKey}>
+                                                                                            {key !== 'ID' && (
+                                                                                                <span className="text-left">
+                                                                                                    {String(value) || ''}
+                                                                                                </span>
+                                                                                            )}
+                                                                                        </React.Fragment>
+                                                                                    ))}
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div>{item}</div>
+                                                                            )}
+                                                                        </React.Fragment>
+                                                                    ))}
+                                                                </React.Fragment>
+                                                            ) : (
+                                                                <div>{String(row[itemHead.id])}</div>
+                                                            )}
+                                                        </React.Fragment>
+                                                    ) : (
+                                                        ''
+                                                    )}
                                                 </TableCell>
                                             )}
-                                        </>
+                                        </React.Fragment>
                                     );
                                 })}
                         </TableRow>

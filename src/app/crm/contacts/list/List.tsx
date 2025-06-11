@@ -4,6 +4,7 @@ import * as ApiService from '@/services/apiBitrix.service';
 import { useQueryHook } from '@/hooks/useQueryHook';
 import TableCF, { HeadCell } from '@/components/table/TableCF';
 import Link from 'next/link';
+import { useMutationHook } from '@/hooks/useMutationHook';
 const List = ({
     tableHeader = [],
     method = '',
@@ -17,18 +18,20 @@ const List = ({
     title?: string;
     urlDetail?: string;
 }) => {
-    const query = useQueryHook(
-        'query list',
+    const getList = useMutationHook((data) =>
         ApiService.callApiBitrix(method, {
             select: tableHeader.map((item: any) => item.id),
         }),
     );
     const [rows, setRows] = useState([]);
     useEffect(() => {
-        if (query.isSuccess) {
-            setRows(query.data.result);
+        if (getList.isSuccess) {
+            console.log(getList.data);
+            setRows(getList.data.result);
         }
-    }, [query.isSuccess]);
+        // dùng mutation tạm để tránh bị cache
+        if (!getList.isSuccess) getList.mutate({});
+    }, [getList.isSuccess]);
     return (
         <div className="mt-6">
             <div className="flex justify-between mb-4">

@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
         },
     },
 });
-
+queryClient.invalidateQueries();
 export default function QueryClientProviderComp({ children }: { children: React.ReactNode }) {
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

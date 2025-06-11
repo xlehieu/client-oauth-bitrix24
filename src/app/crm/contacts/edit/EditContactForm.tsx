@@ -1,19 +1,23 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import ROUTE from '@/config/routes';
-import { Button } from '@mui/material';
-const AddContactForm = ({
+import React from 'react';
+import { useSearchParams } from 'next/navigation';
+const EditContactForm = ({
     onSubmit,
+    titlePage,
+    actionGetData,
     formData,
     setFormData,
-    titlePage,
+    templateFormData,
 }: {
     onSubmit: any;
     formData: any;
     titlePage?: string;
+    actionGetData: string;
+    templateFormData?: any;
     setFormData: (data: any) => void;
 }) => {
+    const searchParams = useSearchParams();
+    const id = searchParams.get('ID');
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, inputName?: string, idxInputConfig?: number, idxMultipleField?: number) => {
         const { name, value } = e.target;
         if (inputName && typeof idxInputConfig === 'number' && typeof idxMultipleField === 'number') {
@@ -43,12 +47,10 @@ const AddContactForm = ({
                 (item: any) =>
                     (item.type === 'text' && item.isRequired && !item.valueInput) ||
                     (item?.type === 'multipleField' &&
-                        item?.inputConfig?.some(
-                            (itemInputConfig: any) =>
-                                itemInputConfig?.multipleField?.some(
-                                    (itemMultipleField: any) => itemMultipleField?.isRequired && !itemMultipleField?.valueInput,
-                                ) ||
-                                (itemInputConfig?.isRequired && !itemInputConfig?.valueInput),
+                        item?.inputConfig?.some((itemInputConfig: any) =>
+                            itemInputConfig?.multipleField?.some(
+                                (itemMultipleField: any) => itemMultipleField?.isRequired && !itemMultipleField?.valueInput,
+                            ),
                         )),
             )
         ) {
@@ -70,21 +72,38 @@ const AddContactForm = ({
                             [item.name]: [
                                 ...(dataSubmit[item.name] || []),
                                 {
-                                    [itemInputConfig.multipleField[0].value]: String(itemInputConfig.multipleField[0].valueInput),
-                                    [itemInputConfig.multipleField[1].value]: String(itemInputConfig.multipleField[1].valueInput),
+                                    ID: itemInputConfig.ID || '',
+                                    [itemInputConfig.multipleField[0].value]: itemInputConfig.multipleField[0].valueInput || '',
+                                    [itemInputConfig.multipleField[1].value]: itemInputConfig.multipleField[1].valueInput || '',
                                 },
                             ],
                         };
                     else if (itemInputConfig?.valueInput) {
                         dataSubmit = {
                             ...dataSubmit,
-                            [item.name]: [...(dataSubmit[item.name] || []), String(itemInputConfig.valueInput)],
+                            [item.name]: [...(dataSubmit[item.name] || []), itemInputConfig.valueInput],
                         };
                     }
                 });
             }
         });
-        onSubmit?.(dataSubmit); // callback gửi data ra ngoài
+        if (templateFormData)
+            Object.entries(templateFormData).forEach(([key, value]: any) => {
+                if (key in dataSubmit) {
+                    if (Array.isArray(value) && value.length > 0) {
+                        value.forEach((item: any) => {
+                            const findData = dataSubmit[key].some((itemDataSubmitKey: any) => item.ID === itemDataSubmitKey.ID && !item.DELETE);
+                            if (!findData) {
+                                dataSubmit[key].push({
+                                    ID: item.ID,
+                                    DELETE: 'Y',
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        onSubmit?.(id, dataSubmit); // callback gửi data ra ngoài
         // console.log('Contact Submitted:', dataSubmit);
     };
     const handleAddField = (e: React.ChangeEvent<HTMLFormElement>, { name }: any) => {
@@ -102,6 +121,7 @@ const AddContactForm = ({
                 ...newInputConfig.inputConfig,
                 {
                     ...newField,
+                    ID: '',
                     multipleField: [
                         { ...newField.multipleField[0], valueInput: '' },
                         { ...newField.multipleField[1], valueInput: '' },
@@ -218,13 +238,13 @@ const AddContactForm = ({
                                                             }
                                                         />
                                                     </div>
-                                                    {Number(indexInputCf) !== 0 && (
+                                                    {inputCf.inputConfig.length > 1 && (
                                                         <button
                                                             key={index + 'addField'}
                                                             onClick={(e) =>
                                                                 handleRemoveField(e as any, { name: inputCf.name, indexRemove: indexInputCf })
                                                             }
-                                                            className="text-sm border border-red-500 rounded px-2 hover:cursor-pointer mt-9 h-5"
+                                                            className="text-sm border border-red-500 rounded px-2 hover:cursor-pointer mt-9 h-5 min-w-16"
                                                         >
                                                             Xóa
                                                         </button>
@@ -232,20 +252,33 @@ const AddContactForm = ({
                                                 </div>
                                             ) : (
                                                 <React.Fragment key={index + 'itemInputCfMultiple'}>
-                                                    <div>
-                                                        <label className="block text-sm font-medium text-gray-700">
-                                                            {itemInputCfMultiple?.title}
-                                                        </label>
-                                                        <input
-                                                            name={itemInputCfMultiple?.name + String(indexInputCf)}
-                                                            value={itemInputCfMultiple?.valueInput}
-                                                            onChange={(e) => handleChange(e, inputCf.name, indexInputCf)}
-                                                            className="w-full border rounded px-3 py-2 mt-1"
-                                                            placeholder={
-                                                                itemInputCfMultiple?.placeholder || 'Nhập ' + (itemInputCfMultiple?.title || '')
-                                                            }
-                                                            required={itemInputCfMultiple?.isRequired || false}
-                                                        />
+                                                    <div className="flex">
+                                                        <div className={`flex-1 ${inputCf.inputConfig.length > 1 && 'mr-4'}`}>
+                                                            <label className="block text-sm font-medium text-gray-700">
+                                                                {itemInputCfMultiple?.title}
+                                                            </label>
+                                                            <input
+                                                                name={itemInputCfMultiple?.name + String(indexInputCf)}
+                                                                value={itemInputCfMultiple?.valueInput}
+                                                                onChange={(e) => handleChange(e, inputCf.name, indexInputCf)}
+                                                                className="w-full border rounded px-3 py-2 mt-1"
+                                                                placeholder={
+                                                                    itemInputCfMultiple?.placeholder || 'Nhập ' + (itemInputCfMultiple?.title || '')
+                                                                }
+                                                                required={itemInputCfMultiple?.isRequired || false}
+                                                            />
+                                                        </div>
+                                                        {inputCf.inputConfig.length > 1 && (
+                                                            <button
+                                                                key={index + 'addField'}
+                                                                onClick={(e) =>
+                                                                    handleRemoveField(e as any, { name: inputCf.name, indexRemove: indexInputCf })
+                                                                }
+                                                                className="text-sm border border-red-500 rounded px-2 hover:cursor-pointer mt-9 h-5 min-w-16"
+                                                            >
+                                                                Xóa
+                                                            </button>
+                                                        )}
                                                     </div>
                                                 </React.Fragment>
                                             )}
@@ -277,10 +310,10 @@ const AddContactForm = ({
                     </React.Fragment>
                 ))}
             <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
-                Thêm liên hệ
+                Cập nhật
             </button>
         </form>
     );
 };
 
-export default AddContactForm;
+export default EditContactForm;

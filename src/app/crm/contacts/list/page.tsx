@@ -10,36 +10,39 @@ const contactTableHeader: HeadCell[] = [
     },
     {
         id: 'NAME',
-        label: 'NAME',
+        label: 'Tên',
         isHide: false,
+        style: {
+            minWidth: '150px',
+        },
     },
     {
         id: 'LAST_NAME',
-        label: 'LAST_NAME',
+        label: 'Họ',
         isHide: false,
     },
     {
         id: 'EMAIL',
-        label: 'EMAIL',
+        label: 'Email',
         isHide: false,
         style: {
-            minWidth: '200px',
+            minWidth: '320px',
         },
     },
     {
         id: 'PHONE',
-        label: 'PHONE',
+        label: 'Số điện thoại',
         isHide: false,
         style: {
-            minWidth: '200px',
+            minWidth: '250px',
         },
     },
     {
         id: 'ADDRESS',
-        label: 'ADDRESS',
+        label: 'Địa chỉ chi tiết',
         isHide: false,
         style: {
-            minWidth: '300px',
+            minWidth: '330px',
         },
     },
     {
@@ -51,6 +54,22 @@ const contactTableHeader: HeadCell[] = [
         id: 'ADDRESS_COUNTRY',
         label: 'ADDRESS_COUNTRY',
         isHide: true,
+    },
+    {
+        id: 'UF_CRM_CONTACT_WEBSITES',
+        label: 'Địa chỉ website',
+        isHide: false,
+        style: {
+            minWidth: '300px',
+        },
+    },
+    {
+        id: 'UF_CRM_CONTACT_BANK_DETAILS',
+        label: 'Tài khoản ngân hàng',
+        isHide: false,
+        style: {
+            minWidth: '300px',
+        },
     },
 ];
 const ContactList = () => {

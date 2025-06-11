@@ -37,6 +37,16 @@ const SITEMAP_LV3 = {
         url: SITEMAP_LV2.contact.url + '/detail',
         method: 'crm.contact.get',
     },
+    edit: {
+        name: 'Cập nhật liên hệ khách hàng',
+        url: SITEMAP_LV2.contact.url + '/edit',
+        method: 'crm.contact.update',
+    },
+    delete: {
+        name: 'Xóa liên hệ khách hàng',
+        url: SITEMAP_LV2.contact.url + '/delete',
+        method: 'crm.contact.delete',
+    },
 };
 const ROUTE = {
     SITEMAP_LV1,

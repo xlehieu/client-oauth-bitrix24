@@ -41,13 +41,13 @@ const ContactCreatePage = () => {
                             title: 'Địa chỉ email',
                             placeholder: 'Nhập email',
                             value: 'VALUE',
-                            valueInput: 'xlehieu@gmail.com',
+                            valueInput: '',
                         },
                         {
                             title: 'Loại email',
                             value: 'VALUE_TYPE',
                             placeHolder: 'Nhập loại email',
-                            valueInput: 'work',
+                            valueInput: '',
                         },
                     ],
                 },
@@ -65,7 +65,7 @@ const ContactCreatePage = () => {
                             isRequired: true,
                             placeholder: 'Nhập số điện thoại',
                             value: 'VALUE',
-                            valueInput: 'ádfasdf',
+                            valueInput: '',
                         },
                         {
                             title: 'Loại số điện thoại',
@@ -104,7 +104,7 @@ const ContactCreatePage = () => {
         },
         {
             type: 'multipleField',
-            name: 'BANK',
+            name: 'UF_CRM_CONTACT_BANK_DETAILS',
             title: 'Thông tin ngân hàng',
             inputConfig: [
                 {
@@ -127,12 +127,25 @@ const ContactCreatePage = () => {
                 },
             ],
         },
+        {
+            type: 'multipleField',
+            name: 'UF_CRM_CONTACT_WEBSITES',
+            title: 'Thông tin website',
+            inputConfig: [
+                {
+                    title: 'Tên website',
+                    name: 'WEBSITE',
+                    isRequired: true,
+                    valueInput: '',
+                    placeholder: 'Nhập địa chỉ website',
+                },
+            ],
+        },
     ]);
 
     const handleSubmitContact = async (data: any) => {
         try {
             Object.entries(data).forEach(([key, value]) => {
-                console.log(key, value);
                 if (key === 'PHONE') {
                     if (Array.isArray(value) && value.length > 0) {
                         value.forEach((itemValue: any) => {
@@ -142,8 +155,21 @@ const ContactCreatePage = () => {
                         });
                     }
                 }
+                // biến đổi thành chuỗi json
+                if (key.startsWith('UF_CRM')) {
+                    console.log('value', JSON.stringify(value));
+                    data[key] = JSON.stringify(value);
+                }
             });
-            const dataResponseMutation = await submitMutation.mutateAsync({ FIELDS: data });
+            // console.log('data', data);
+            // return;
+            const dataResponseMutation = await submitMutation.mutateAsync({
+                FIELDS: data,
+                PARAMS: {
+                    REGISTER_SONET_EVENT: 'N',
+                    REGISTER_HISTORY_EVENT: 'N',
+                },
+            });
             console.log('dataResponseMutation', dataResponseMutation);
         } catch (err) {
             if (err instanceof Error) {
@@ -157,7 +183,7 @@ const ContactCreatePage = () => {
     };
     useEffect(() => {
         if (submitMutation.isSuccess) {
-            if (submitMutation.data?.error || !submitMutation.data) {
+            if (submitMutation.data?.error) {
                 setTitle('Thêm liên hệ thất bại');
                 setOpenAlert(true);
                 return;
