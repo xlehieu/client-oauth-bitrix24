@@ -202,7 +202,7 @@ const ContactCreatePage = () => {
                                     const dataKey = Object.keys(item);
                                     //dữ liệu parse json thì không có dataKey
                                     const indexID = dataKey.findIndex((item) => item === 'ID');
-                                    dataKey.splice(indexID, 1);
+                                    if (indexID !== -1) dataKey.splice(indexID, 1);
                                     formData[indexFormData]?.inputConfig?.push({
                                         ...template,
                                         multipleField: [
